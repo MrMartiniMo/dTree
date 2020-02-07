@@ -167,14 +167,22 @@ class TreeBuilder {
         if (d3.event.detail === 2 || d.data.hidden) {
           return
         }
-        opts.callbacks.nodeClick.call(this, d.data.name, d.data.extra, d.data.id)
+        if (d.data.isMarriage) {
+          opts.callbacks.marriageClick.call(this, d.data.extra, d.data.id)
+        } else {
+          opts.callbacks.nodeClick.call(this, d.data.name, d.data.extra, d.data.id)
+        }
       })
       .on('contextmenu', function (d) {
         if (d.data.hidden) {
           return
         }
-        d3.event.preventDefault()
-        opts.callbacks.nodeRightClick.call(this, d.data.name, d.data.extra, d.data.id)
+        d3.event.preventDefault();
+        if (d.data.isMarriage) {
+          opts.callbacks.marriageRightClick.call(this, d.data.extra, d.data.id)
+        } else {
+          opts.callbacks.nodeRightClick.call(this, d.data.name, d.data.extra, d.data.id)
+        }
       });
   }
 
