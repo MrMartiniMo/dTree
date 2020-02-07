@@ -136,19 +136,19 @@ class TreeBuilder {
         // to prevent the zoom from being triggered
         d3.event.stopPropagation()
       })
-      .on('click', function(d)  {
+      .on('click', function (d) {
         // ignore double-clicks and clicks on hidden nodes
         if (d3.event.detail === 2 || d.data.hidden) {
-          return;
+          return
         }
-        opts.callbacks.nodeClick(d.data.name, d.data.extra, d.data.id);
+        opts.callbacks.nodeClick.call(this, d.data.name, d.data.extra, d.data.id)
       })
-      .on('contextmenu', function(d)  {
+      .on('contextmenu', function (d) {
         if (d.data.hidden) {
-          return;
+          return
         }
-        d3.event.preventDefault();
-        opts.callbacks.nodeRightClick(d.data.name, d.data.extra, d.data.id);
+        d3.event.preventDefault()
+        opts.callbacks.nodeRightClick.call(this, d.data.name, d.data.extra, d.data.id)
       });
   }
 
